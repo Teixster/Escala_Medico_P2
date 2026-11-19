@@ -1,0 +1,15 @@
+meta {
+  name: R5 - Plantonistas Noturnos
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:8081/api/painel/plantonistas-noturnos?minimo=2
+  body: none
+  auth: none
+}
+
+params:query {
+  minimo: 2
+}

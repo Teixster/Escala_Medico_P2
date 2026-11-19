@@ -1,0 +1,15 @@
+meta {
+  name: R3 - Ranking de Uso da Carga
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8081/api/painel/ranking-carga?limite=5
+  body: none
+  auth: none
+}
+
+params:query {
+  limite: 5
+}
