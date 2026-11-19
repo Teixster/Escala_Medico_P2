@@ -1,6 +1,12 @@
 package br.edu.eseg.escala.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.PageRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +43,7 @@ public class PainelService {
     /** R1: horas de escala por especialidade. */
     public List<EspecialidadeResumoResponse> especialidades() {
         // TODO R1: crie o método no PainelRepository e troque a linha abaixo por return painel.<metodo>(...);
-        throw new NaoImplementadoException("R1");
+        return painel.especialidades();
     }
 
     /** R2: movimento de cada prédio. */
