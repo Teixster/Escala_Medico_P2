@@ -58,4 +58,23 @@ public interface PainelRepository extends Repository<Alocacao, Long> {
             order by p.nome asc
             """)
     List<PredioResumoResponse> predios();
+
+    @Query("""
+            select new br.edu.eseg.escala.dto.painel.RankingCargaResponse(
+                   m.nome,
+                   e.nome,
+                   r.descricao,
+                   sum(t.duracaoHoras),
+                   r.cargaHorariaSemanal)
+            from Alocacao a
+            join a.medico m
+            join m.especialidade e
+            join m.regime r
+            join a.turno t
+            group by m.id, m.nome, e.nome, r.descricao, r.cargaHorariaSemanal
+            order by (sum(t.duracaoHoras) * 1.0 / r.cargaHorariaSemanal) desc,
+                     sum(t.duracaoHoras) desc,
+                     m.nome asc
+            """)
+    List<RankingCargaResponse> rankingCarga(Pageable pageable);
 }
