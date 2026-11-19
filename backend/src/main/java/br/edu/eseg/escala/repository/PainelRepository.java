@@ -94,4 +94,20 @@ public interface PainelRepository extends Repository<Alocacao, Long> {
             order by p.nome asc, d.nome asc
             """)
     List<DepartamentoDescobertoResponse> departamentosDescobertos(@Param("dia") Integer dia);
+
+    @Query("""
+            select new br.edu.eseg.escala.dto.painel.PlantonistaNoturnoResponse(
+                   m.nome,
+                   e.nome,
+                   count(a.id))
+            from Alocacao a
+            join a.medico m
+            join m.especialidade e
+            join a.turno t
+            where t.nome = 'Noite'
+            group by m.id, m.nome, e.nome
+            having count(a.id) >= :minimo
+            order by count(a.id) desc, m.nome asc
+            """)
+    List<PlantonistaNoturnoResponse> plantonistasNoturnos(@Param("minimo") Integer minimo);
 }
