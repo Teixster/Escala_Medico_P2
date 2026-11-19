@@ -77,4 +77,21 @@ public interface PainelRepository extends Repository<Alocacao, Long> {
                      m.nome asc
             """)
     List<RankingCargaResponse> rankingCarga(Pageable pageable);
+
+    @Query("""
+            select new br.edu.eseg.escala.dto.painel.DepartamentoDescobertoResponse(
+                   d.id,
+                   d.nome,
+                   p.nome)
+            from Departamento d
+            join d.predio p
+            where not exists (
+                   select 1
+                   from Alocacao a
+                   where a.departamento = d
+                     and a.diaSemana = :dia
+            )
+            order by p.nome asc, d.nome asc
+            """)
+    List<DepartamentoDescobertoResponse> departamentosDescobertos(@Param("dia") Integer dia);
 }
