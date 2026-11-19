@@ -110,3 +110,26 @@ mvnw.cmd spring-boot:run        # Windows
 
 A API sobe em `http://localhost:8080` usando `../database/escala.sqlite`.
 Veja `backend/README.md` para a lista de endpoints e `backend/requests.http` para requisições prontas.
+
+## Avaliação P2: Painel de Gestão da Escala
+
+API REST rodando na porta `8081` (`http://localhost:8081`) sobre a base `backend/data/escala_p2.sqlite`, com os 7 relatórios do Painel implementados e coleção de testes salva em `bruno/p2/`.
+
+| Código | Método e Endpoint | Descrição | Status | Responsável |
+|---|---|---|---|---|
+| **R0** | `GET /api/painel/exemplo/medicos-por-regime` | Quantidade de médicos por regime de trabalho (exemplo) | Implementado (200) | Esqueleto base |
+| **R1** | `GET /api/painel/especialidades` | Horas alocadas, total de médicos e médicos escalados por especialidade | Implementado (200) | A preencher pelo grupo |
+| **R2** | `GET /api/painel/predios` | Departamentos, plantões, médicos distintos e horas por prédio | Implementado (200) | A preencher pelo grupo |
+| **R3** | `GET /api/painel/ranking-carga?limite=5` | Top N médicos com maior percentual de uso da carga semanal | Implementado (200) | A preencher pelo grupo |
+| **R4** | `GET /api/painel/departamentos-descobertos?dia=7` | Departamentos sem nenhum médico escalado no dia informado (1 a 7) | Implementado (200) | A preencher pelo grupo |
+| **R5** | `GET /api/painel/plantonistas-noturnos?minimo=2` | Médicos com pelo menos `minimo` plantões no turno Noite | Implementado (200) | A preencher pelo grupo |
+| **R6** | `GET /api/painel/dias` | Retrato da semana: médicos, departamentos atendidos e horas por dia (1 a 7) | Implementado (200) | A preencher pelo grupo |
+
+### Conferência rápida (`escala_p2.sqlite`)
+
+- **R1:** 12 especialidades; 1ª `Radiologia` (3 médicos, 3 escalados, 108 h) e última `Ginecologia e Obstetrícia` (3 médicos, 1 escalado, 18 h).
+- **R2:** `Bloco A` (3 departamentos, 34 plantões, 12 médicos, 210 h), `Bloco B` (3 departamentos, 42 plantões, 15 médicos, 276 h), `Bloco C` (3 departamentos, 34 plantões, 18 médicos, 282 h).
+- **R3:** `limite=36` devolve 28 médicos; 1º `Thiago Bastos` (100.0%, 36/36 h) e último `Rodrigo Peixoto` (50.0%, 12/24 h).
+- **R4:** `dia=7` devolve 7 departamentos, `dia=6` devolve 5 e `dia=1` devolve 3.
+- **R5:** `minimo=2` devolve 5 médicos; `minimo=3` devolve apenas `Thiago Bastos` (3 noites).
+- **R6:** 7 dias; `Segunda-feira` (14 médicos, 6 departamentos, 138 h) e `Sexta-feira` (21 médicos, 7 departamentos, 180 h).

@@ -91,12 +91,12 @@ A P2 usa a base `data/escala_p2.sqlite`, com a escala da semana preenchida.
 | Relatório | Endpoint | Situação |
 |---|---|---|
 | R0 | `GET /api/painel/exemplo/medicos-por-regime` | pronto (exemplo) |
-| R1 | `GET /api/painel/especialidades` | 501 até você implementar |
-| R2 | `GET /api/painel/predios` | 501 até você implementar |
-| R3 | `GET /api/painel/ranking-carga?limite=5` | 501 até você implementar |
-| R4 | `GET /api/painel/departamentos-descobertos?dia=7` | 501 até você implementar |
-| R5 | `GET /api/painel/plantonistas-noturnos?minimo=2` | 501 até você implementar |
-| R6 | `GET /api/painel/dias` | 501 até você implementar |
+| R1 | `GET /api/painel/especialidades` | implementado (200) |
+| R2 | `GET /api/painel/predios` | implementado (200) |
+| R3 | `GET /api/painel/ranking-carga?limite=5` | implementado (200) |
+| R4 | `GET /api/painel/departamentos-descobertos?dia=7` | implementado (200) |
+| R5 | `GET /api/painel/plantonistas-noturnos?minimo=2` | implementado (200) |
+| R6 | `GET /api/painel/dias` | implementado (200) |
 
 Controller, service e DTOs estão prontos. Para cada relatório:
 
