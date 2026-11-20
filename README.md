@@ -4,28 +4,30 @@ Aplicação que organiza a escala semanal dos médicos de um hospital e responde
 
 > **Em qual prédio e departamento o médico X está no dia Y, turno Z?**
 
+**Integrantes:** Yago Lima e Fabrício Brito
+
 O projeto tem duas partes:
 
 | Parte | Aula | Conteúdo | Pasta |
 |---|---|---|---|
 | 1 | Aula 1 | Modelagem, scripts DDL/DML e consultas SQL | `database/`, `docs/` |
-| 2 | Aula 2 | API REST com Spring Boot sobre o mesmo banco | `backend/` |
-
-> Este repositório é a **solução de referência do professor**.
+| 2 | Aula 2 / P2 | API REST com Spring Boot e Painel de Gestão da Escala | `backend/`, `bruno/p2/` |
 
 ## Estrutura
 
-```
+```text
 projeto-escala-medica/
 ├── README.md
+├── bruno/
+│   └── p2/                         coleção Bruno com as requisições R0 a R6
 ├── database/
 │   ├── base/hospital.sqlite        banco fornecido (médicos, especialidades, regimes)
 │   ├── ddl/                        01 a 05: CREATE TABLE das tabelas novas
 │   ├── dml/                        01 a 05: INSERTs de prédios, departamentos, turnos e escala
 │   ├── queries/                    Q1 a Q6: consultas obrigatórias
-│   └── escala.sqlite               banco final (base + DDL + DML), usado pelo backend
+│   └── escala.sqlite               banco final da Parte 1 (base + DDL + DML)
 ├── docs/diagramas/
-└── backend/                        projeto Spring Boot (Parte 2)
+└── backend/                        projeto Spring Boot (Parte 2 / Avaliação P2)
 ```
 
 ## Modelo de dados
@@ -90,26 +92,16 @@ As tabelas novas apenas apontam para elas por chave estrangeira, por isso nenhum
 4. Rode os scripts de `ddl/` e depois os de `dml/`, sempre na ordem numérica.
 5. Confira com as consultas de `queries/`. A Q4 deve retornar vazio.
 
-Com o `sqlite3` no terminal:
-
-```bash
-cd database
-cp base/hospital.sqlite escala.sqlite
-cat ddl/*.sql dml/*.sql | sqlite3 -cmd "PRAGMA foreign_keys = ON;" escala.sqlite
-```
-
 ## Parte 2: rodar o backend
 
-Requisitos: **Java 17 ou superior**. O Maven não precisa estar instalado, o wrapper (`mvnw`) baixa sozinho.
+Requisitos: **JDK 17 ou superior** e **IntelliJ IDEA** (ou Maven Wrapper).
 
-```bash
-cd backend
-./mvnw spring-boot:run          # Linux / macOS
-mvnw.cmd spring-boot:run        # Windows
-```
+1. No IntelliJ IDEA, abra a pasta `backend/` (onde está o `pom.xml`).
+2. Configure o SDK em **File > Project Structure > Project > SDK** para JDK 17+.
+3. Execute `src/main/java/br/edu/eseg/escala/EscalaApplication.java`.
 
-A API sobe em `http://localhost:8080` usando `../database/escala.sqlite`.
-Veja `backend/README.md` para a lista de endpoints e `backend/requests.http` para requisições prontas.
+A API sobe em `http://localhost:8081` usando `backend/data/escala_p2.sqlite`.
+Veja `backend/README.md` para os detalhes da arquitetura e `bruno/p2/` para as requisições salvas no Bruno.
 
 ## Avaliação P2: Painel de Gestão da Escala
 
@@ -118,12 +110,12 @@ API REST rodando na porta `8081` (`http://localhost:8081`) sobre a base `backend
 | Código | Método e Endpoint | Descrição | Status | Responsável |
 |---|---|---|---|---|
 | **R0** | `GET /api/painel/exemplo/medicos-por-regime` | Quantidade de médicos por regime de trabalho (exemplo) | Implementado (200) | Esqueleto base |
-| **R1** | `GET /api/painel/especialidades` | Horas alocadas, total de médicos e médicos escalados por especialidade | Implementado (200) | A preencher pelo grupo |
-| **R2** | `GET /api/painel/predios` | Departamentos, plantões, médicos distintos e horas por prédio | Implementado (200) | A preencher pelo grupo |
-| **R3** | `GET /api/painel/ranking-carga?limite=5` | Top N médicos com maior percentual de uso da carga semanal | Implementado (200) | A preencher pelo grupo |
-| **R4** | `GET /api/painel/departamentos-descobertos?dia=7` | Departamentos sem nenhum médico escalado no dia informado (1 a 7) | Implementado (200) | A preencher pelo grupo |
-| **R5** | `GET /api/painel/plantonistas-noturnos?minimo=2` | Médicos com pelo menos `minimo` plantões no turno Noite | Implementado (200) | A preencher pelo grupo |
-| **R6** | `GET /api/painel/dias` | Retrato da semana: médicos, departamentos atendidos e horas por dia (1 a 7) | Implementado (200) | A preencher pelo grupo |
+| **R1** | `GET /api/painel/especialidades` | Horas alocadas, total de médicos e médicos escalados por especialidade | Implementado (200) | Yago Lima |
+| **R2** | `GET /api/painel/predios` | Departamentos, plantões, médicos distintos e horas por prédio | Implementado (200) | Yago Lima |
+| **R3** | `GET /api/painel/ranking-carga?limite=5` | Top N médicos com maior percentual de uso da carga semanal | Implementado (200) | Yago Lima |
+| **R4** | `GET /api/painel/departamentos-descobertos?dia=7` | Departamentos sem nenhum médico escalado no dia informado (1 a 7) | Implementado (200) | Fabrício Brito |
+| **R5** | `GET /api/painel/plantonistas-noturnos?minimo=2` | Médicos com pelo menos `minimo` plantões no turno Noite | Implementado (200) | Fabrício Brito |
+| **R6** | `GET /api/painel/dias` | Retrato da semana: médicos, departamentos atendidos e horas por dia (1 a 7) | Implementado (200) | Fabrício Brito |
 
 ### Conferência rápida (`escala_p2.sqlite`)
 
