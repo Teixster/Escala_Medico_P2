@@ -11,8 +11,6 @@ O projeto tem duas partes:
 | 1 | Aula 1 | Modelagem, scripts DDL/DML e consultas SQL | `database/`, `docs/` |
 | 2 | Aula 2 | API REST com Spring Boot sobre o mesmo banco | `backend/` |
 
-> Este repositório é a **solução de referência do professor**.
-
 ## Estrutura
 
 ```
